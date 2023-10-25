@@ -1,0 +1,98 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Carregue o arquivo Excel "Base Financeiro"
+df = pd.read_excel("Base Financeiro.xlsx")
+
+# Contagem única de "Id Cliente" por "UF"
+count_by_uf = df.groupby("UF")["Id Cliente"].nunique()
+
+# Contagem única de "Id Cliente" por "Banco"
+count_by_banco = df.groupby("Banco")["Id Cliente"].nunique()
+
+# Soma de "Valor da Movimentação" por "UF"
+sum_by_uf = df.groupby("UF")["Valor da Movimentação"].sum()
+
+# Soma de "Valor da Movimentação" por "Segmento"
+sum_by_segmento = df.groupby("Segmento")["Valor da Movimentação"].sum()
+
+# Lista de "UF", "Banco" e "Segmento"
+ufs = ["ESPÍRITO SANTO", "SÃO PAULO", "RIO DE JANEIRO", "MINAS GERAIS"]
+bancos = ["BANCO SAFRA", "HSBC", "BRADESCO", "SANTANDER", "BANCO DO BRASIL", "ITAÚ"]
+segmentos = ["Click Conta", "Master", "Prime", "Classic"]
+
+# Gráfico de Contagem única de "Id Cliente" por "UF"
+plt.figure(figsize=(10, 5))
+plt.bar(count_by_uf.index, count_by_uf.values)
+plt.xlabel("UF")
+plt.ylabel("Contagem única de Id Cliente")
+plt.title("Contagem única de Id Cliente por UF")
+plt.xticks(rotation=45)
+
+# Adicione rótulos aos gráficos de barra
+for i in range(len(count_by_uf.index)):
+    plt.text(i, count_by_uf.values[i], str(count_by_uf.values[i]), ha="center", va="bottom")
+
+plt.show()
+
+# Gráfico de Contagem única de "Id Cliente" por "Banco"
+plt.figure(figsize=(10, 5))
+plt.bar(count_by_banco.index, count_by_banco.values)
+plt.xlabel("Banco")
+plt.ylabel("Contagem única de Id Cliente")
+plt.title("Contagem única de Id Cliente por Banco")
+plt.xticks(rotation=45)
+
+# Adicione rótulos aos gráficos de barra
+for i in range(len(count_by_banco.index)):
+    plt.text(i, count_by_banco.values[i], str(count_by_banco.values[i]), ha="center", va="bottom")
+
+plt.show()
+
+# Gráfico de Soma de "Valor da Movimentação" por "UF"
+plt.figure(figsize=(10, 5))
+plt.bar(sum_by_uf.index, sum_by_uf.values)
+plt.xlabel("UF")
+plt.ylabel("Soma de Valor da Movimentação")
+plt.title("Soma de Valor da Movimentação por UF")
+plt.xticks(rotation=45)
+
+# Adicione rótulos aos gráficos de barra
+for i in range(len(sum_by_uf.index)):
+    plt.text(i, sum_by_uf.values[i], str(sum_by_uf.values[i]), ha="center", va="bottom")
+
+plt.show()
+
+# Gráfico de Soma de "Valor da Movimentação" por "Segmento"
+plt.figure(figsize=(10, 5))
+plt.bar(sum_by_segmento.index, sum_by_segmento.values)
+plt.xlabel("Segmento")
+plt.ylabel("Soma de Valor da Movimentação")
+plt.title("Soma de Valor da Movimentação por Segmento")
+plt.xticks(rotation=45)
+
+# Adicione rótulos aos gráficos de barra
+for i in range(len(sum_by_segmento.index)):
+    plt.text(i, sum_by_segmento.values[i], str(sum_by_segmento.values[i]), ha="center", va="bottom")
+
+plt.show()
+
+# Tabela de Contagem única de "Id Cliente" por "UF"
+count_by_uf_table = pd.DataFrame(count_by_uf)
+count_by_uf_table.columns = ["Contagem única de Id Cliente por UF"]
+print(count_by_uf_table)
+
+# Tabela de Contagem única de "Id Cliente" por "Banco"
+count_by_banco_table = pd.DataFrame(count_by_banco)
+count_by_banco_table.columns = ["Contagem única de Id Cliente por Banco"]
+print(count_by_banco_table)
+
+# Tabela de Soma de "Valor da Movimentação" por "UF"
+sum_by_uf_table = pd.DataFrame(sum_by_uf)
+sum_by_uf_table.columns = ["Soma de Valor da Movimentação por UF"]
+print(sum_by_uf_table)
+
+# Tabela de Soma de "Valor da Movimentação" por "Segmento"
+sum_by_segmento_table = pd.DataFrame(sum_by_segmento)
+sum_by_segmento_table.columns = ["Soma de Valor da Movimentação por Segmento"]
+print(sum_by_segmento_table)
